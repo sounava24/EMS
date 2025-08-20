@@ -13,7 +13,10 @@ export default function AdminDashboard() {
         <h1 className="text-2xl font-bold">
           Hello <span className="text-yellow-300">{user?.name} 👋</span>
         </h1>
-        <button onClick={logout} className="bg-red-600 px-4 py-2 rounded">
+        <button
+          onClick={logout}
+          className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-lg shadow-lg font-medium transition-all duration-200"
+        >
           Log Out
         </button>
       </div>
