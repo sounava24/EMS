@@ -1,18 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 export default function CTA() {
-  return (
-    <section className="bg-green-600 text-white py-8">
-      <div className="max-w-4xl mx-auto text-center px-6">
-        <h2 className="text-3xl font-bold mb-8">Ready to manage your events better?</h2>
-        <Link 
-          to="/register"
-          className="bg-white text-green-700 font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-gray-100 transition"
-        >
-          Get Started Today
-        </Link>
-      </div>
-    </section>
-  );
-}
+    return (
+      <section className="max-w-6xl mx-auto my-20 px-6">
+        <div className="bg-black/70 backdrop-blur-md rounded-2xl border border-gray-700 p-10 shadow-lg text-center">
+          <h2 className="text-3xl font-bold text-green-400 mb-6">
+            Ready to Get Started?
+          </h2>
+          <p className="text-gray-300 mb-8">
+            Sign up today and see how our EMS can help your team succeed.
+          </p>
+          <a
+            href="/register"
+            className="bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition"
+          >
+            Create an Account
+          </a>
+        </div>
+      </section>
+    );
+  }
+      

@@ -1,30 +1,24 @@
-import React from "react";
-import { CheckCircle } from "lucide-react";
-
 export default function Features() {
-  const features = [
-    { title: "Event Scheduling", desc: "Plan, organize, and publish events with ease." },
-    { title: "Attendee Management", desc: "Track registrations and engagement in real-time." },
-    { title: "Automated Reports", desc: "Get actionable insights instantly after events." },
-  ];
-
-  return (
-    <section id="features" className="py-20 bg-black">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-green-400">Features</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, i) => (
-            <div 
-              key={i} 
-              className="bg-[#111] border border-green-500 shadow-lg rounded-2xl p-6 text-center hover:scale-105 transition-transform"
-            >
-              <CheckCircle className="w-10 h-10 text-green-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-400">{feature.desc}</p>
+    return (
+      <section className="max-w-6xl mx-auto my-20 px-6">
+        <div className="bg-black/70 backdrop-blur-md rounded-2xl border border-gray-700 p-10 shadow-lg">
+          <h2 className="text-3xl font-bold text-green-400 mb-6">Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-black/50 rounded-xl border border-gray-800 hover:border-green-400 transition">
+              <h3 className="text-xl font-semibold mb-2">Feature One</h3>
+              <p className="text-gray-300">Description for feature one.</p>
             </div>
-          ))}
+            <div className="p-6 bg-black/50 rounded-xl border border-gray-800 hover:border-green-400 transition">
+              <h3 className="text-xl font-semibold mb-2">Feature Two</h3>
+              <p className="text-gray-300">Description for feature two.</p>
+            </div>
+            <div className="p-6 bg-black/50 rounded-xl border border-gray-800 hover:border-green-400 transition">
+              <h3 className="text-xl font-semibold mb-2">Feature Three</h3>
+              <p className="text-gray-300">Description for feature three.</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }
+  

@@ -1,53 +1,65 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { scroller } from "react-scroll";
 
 export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const onLanding = location.pathname === "/";
+
+  const handleNavClick = (section) => {
+    if (onLanding) {
+      scroller.scrollTo(section, {
+        duration: 600,
+        smooth: "easeInOutQuart",
+        offset: -70,
+      });
+    } else {
+      navigate("/", { replace: false });
+      setTimeout(() => {
+        scroller.scrollTo(section, {
+          duration: 600,
+          smooth: "easeInOutQuart",
+          offset: -70,
+        });
+      }, 300);
+    }
+  };
+
   return (
-    <header className="w-full bg-[#111] border-b border-green-500 py-4 shadow-lg">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-6">
-        <h1 className="text-2xl font-extrabold text-green-400">EMS Platform</h1>
-        <nav className="flex gap-6">
-          <RouterLink to="/" className="hover:text-green-400 transition">Home</RouterLink>
-          
-          <ScrollLink 
-            to="features" 
-            smooth={true} 
-            duration={600} 
-            offset={-80} 
-            className="hover:text-green-400 transition cursor-pointer"
-          >
-            Features
-          </ScrollLink>
-
-          <ScrollLink 
-            to="about" 
-            smooth={true} 
-            duration={600} 
-            offset={-80}
-            className="hover:text-green-400 transition cursor-pointer"
-          >
-            About
-          </ScrollLink>
-
-          <ScrollLink 
-            to="testimonials" 
-            smooth={true} 
-            duration={600} 
-            offset={-80}
-            className="hover:text-green-400 transition cursor-pointer"
-          >
-            Testimonials
-          </ScrollLink>
-
-          <RouterLink 
-            to="/login" 
-            className="bg-green-600 px-4 py-2 rounded-full font-semibold hover:bg-green-700 transition"
-          >
-            Login
-          </RouterLink>
-        </nav>
-      </div>
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+      <nav className="flex items-center gap-8 bg-black/70 backdrop-blur-md px-10 py-3 rounded-full shadow-lg border border-gray-700">
+        <Link
+          to="/"
+          className="text-white font-medium hover:text-green-400 transition"
+        >
+          Home
+        </Link>
+        <button
+          onClick={() => handleNavClick("features")}
+          className="text-white font-medium hover:text-green-400 transition"
+        >
+          Features
+        </button>
+        <button
+          onClick={() => handleNavClick("about")}
+          className="text-white font-medium hover:text-green-400 transition"
+        >
+          About
+        </button>
+        <button
+          onClick={() => handleNavClick("testimonials")}
+          className="text-white font-medium hover:text-green-400 transition"
+        >
+          Testimonials
+        </button>
+        <Link
+          to="/login"
+          className="bg-green-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-green-700 transition"
+        >
+          Login
+        </Link>
+      </nav>
     </header>
   );
 }
