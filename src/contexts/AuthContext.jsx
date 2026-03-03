@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
     return saved ? JSON.parse(saved) : null;
   });
 
-  const register = ({ name, email, password, role }) => {
+  const register = ({ name, email, password, role, qualifications, jobTitle, jobRole, age }) => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     // check if email already exists
@@ -16,13 +16,14 @@ export function AuthProvider({ children }) {
       throw new Error("User already exists with this email");
     }
 
-    const newUser = { name, email, password, role };
+    const newUser = { name, email, password, role, qualifications, jobTitle, jobRole, age };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
     // auto-login after register
-    setUser({ name, email, role });
-    localStorage.setItem("currentUser", JSON.stringify({ name, email, role }));
+    const currentUser = { name, email, role, qualifications, jobTitle, jobRole, age };
+    setUser(currentUser);
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
   };
 
   const login = ({ email, password }) => {
@@ -34,11 +35,17 @@ export function AuthProvider({ children }) {
       throw new Error("Invalid email or password");
     }
 
-    setUser({ name: foundUser.name, email, role: foundUser.role });
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({ name: foundUser.name, email, role: foundUser.role })
-    );
+    const currentUser = {
+      name: foundUser.name,
+      email,
+      role: foundUser.role,
+      qualifications: foundUser.qualifications,
+      jobTitle: foundUser.jobTitle,
+      jobRole: foundUser.jobRole,
+      age: foundUser.age,
+    };
+    setUser(currentUser);
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
   };
 
   const logout = () => {
@@ -46,8 +53,12 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("currentUser");
   };
 
+  const getAllUsers = () => {
+    return JSON.parse(localStorage.getItem("users") || "[]");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, register, login, logout }}>
+    <AuthContext.Provider value={{ user, register, login, logout, getAllUsers }}>
       {children}
     </AuthContext.Provider>
   );

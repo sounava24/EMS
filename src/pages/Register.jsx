@@ -11,19 +11,23 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employee"); // default role
+  const [qualifications, setQualifications] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobRole, setJobRole] = useState("");
+  const [age, setAge] = useState("");
   const [error, setError] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !qualifications || !jobTitle || !jobRole || !age) {
       setError("All fields are required");
       return;
     }
 
     try {
-      register({ name, email, password, role });
+      register({ name, email, password, role, qualifications, jobTitle, jobRole, age });
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -44,7 +48,7 @@ export default function Register() {
         <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
 
         {/* Register Card */}
-        <div className="relative border border-green-500 rounded-2xl p-8 w-[400px] space-y-6 shadow-2xl bg-black/80 backdrop-blur-md z-10">
+        <div className="relative border border-green-500 rounded-2xl p-8 w-full max-w-2xl space-y-6 shadow-2xl bg-black/80 backdrop-blur-md z-10">
           <h2 className="text-3xl font-extrabold text-center text-green-400">
             Register to EMS
           </h2>
@@ -55,21 +59,23 @@ export default function Register() {
             </div>
           )}
 
-          <form className="space-y-4" onSubmit={handleRegister}>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <form className="space-y-6" onSubmit={handleRegister}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Enter your name"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
             <input
               type="password"
               placeholder="Enter your password"
@@ -77,6 +83,38 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Enter your qualifications"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={qualifications}
+                onChange={(e) => setQualifications(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Enter your job title"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Enter your job role"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={jobRole}
+                onChange={(e) => setJobRole(e.target.value)}
+              />
+              <input
+                type="number"
+                placeholder="Enter your age"
+                className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              />
+            </div>
 
             <select
               className="w-full px-4 py-3 rounded-full border border-green-500 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-green-400"

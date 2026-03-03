@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { scroller } from "react-scroll";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Header() {
+  const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const onLanding = location.pathname === "/";
@@ -28,37 +30,56 @@ export default function Header() {
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-      <nav className="flex items-center gap-8 bg-black/70 backdrop-blur-md px-10 py-3 rounded-full shadow-lg border border-gray-700">
-        <Link
-          to="/"
-          className="text-white font-medium hover:text-green-400 transition"
-        >
-          Home
-        </Link>
-        <button
-          onClick={() => handleNavClick("features")}
-          className="text-white font-medium hover:text-green-400 transition"
-        >
-          Features
-        </button>
-        <button
-          onClick={() => handleNavClick("about")}
-          className="text-white font-medium hover:text-green-400 transition"
-        >
-          About
-        </button>
-        <button
-          onClick={() => handleNavClick("testimonials")}
-          className="text-white font-medium hover:text-green-400 transition"
-        >
-          Testimonials
-        </button>
-        <Link
-          to="/login"
-          className="bg-green-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-green-700 transition"
-        >
-          Login
-        </Link>
+      <nav className="flex items-center gap-8 bg-surface/80 backdrop-blur-md px-10 py-3 rounded-full shadow-lg border border-border">
+        {user ? (
+          <>
+            <Link
+              to={`/${user.role}`}
+              className="text-text-primary font-medium hover:text-primary transition"
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/profile"
+              className="text-text-primary font-medium hover:text-primary transition"
+            >
+              Profile
+            </Link>
+            <button
+              onClick={logout}
+              className="bg-danger text-white px-5 py-2 rounded-full font-semibold hover:bg-danger/90 transition"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/"
+              className="text-text-primary font-medium hover:text-primary transition"
+            >
+              Home
+            </Link>
+            <button
+              onClick={() => handleNavClick("features")}
+              className="text-text-primary font-medium hover:text-primary transition"
+            >
+              Features
+            </button>
+            <button
+              onClick={() => handleNavClick("about")}
+              className="text-text-primary font-medium hover:text-primary transition"
+            >
+              About
+            </button>
+            <Link
+              to="/login"
+              className="bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-primary-hover transition"
+            >
+              Login
+            </Link>
+          </>
+        )}
       </nav>
     </header>
   );

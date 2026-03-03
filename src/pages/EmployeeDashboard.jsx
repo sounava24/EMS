@@ -2,9 +2,14 @@ import { useAuth } from "../contexts/AuthContext";
 import { useTasks } from "../contexts/TaskContext";
 import TaskCard from "../components/TaskCard";
 import Header from "../components/Header";
+import LeaveForm from "../components/LeaveForm";
+import LeaveHistory from "../components/LeaveHistory";
+import { useLeaves } from "../contexts/LeaveContext";
+
 export default function EmployeeDashboard() {
   const { user, logout } = useAuth();
   const { tasks, updateTaskStatus } = useTasks();
+  const { leaves } = useLeaves();
 
   // All tasks ever assigned to this employee
   const myTasks = tasks.filter(
@@ -25,11 +30,8 @@ export default function EmployeeDashboard() {
 
   return (
     <>
-    {/* Fixed header on top */}
-    <div className="fixed top-0 left-0 w-full z-50 text-amber-50">
-        <Header />
-      </div>
-    <div className="relative min-h-screen bg-black text-white p-6 overflow-hidden">
+    <Header />
+    <div className="relative min-h-screen bg-black text-white p-6 pt-20 overflow-hidden">
       {/* Background glow effects */}
       <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
@@ -39,12 +41,6 @@ export default function EmployeeDashboard() {
         <h1 className="text-3xl font-extrabold tracking-tight">
           Hello <span className="text-green-400">{user?.name} 👋</span>
         </h1>
-        <button
-          onClick={logout}
-          className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-full shadow-lg font-semibold transition-all duration-300"
-          >
-          Log Out
-        </button>
       </div>
 
       {/* Status Summary */}
@@ -125,6 +121,39 @@ export default function EmployeeDashboard() {
         ) : (
           <p className="text-gray-400">No failed tasks yet.</p>
         )}
+      </div>
+
+      {/* Leave Management Section */}
+      <h2 className="relative z-10 text-2xl font-bold mb-4 border-b border-gray-700 pb-2 mt-10">
+        Leave Management
+      </h2>
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-1">
+          {/* Leave Balances */}
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg mb-6">
+            <h3 className="text-xl font-bold text-green-400 mb-4">Your Leave Balance</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span>Casual Leave:</span>
+                <span className="font-semibold">12 days</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sick Leave:</span>
+                <span className="font-semibold">10 days</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Earned Leave:</span>
+                <span className="font-semibold">5 days</span>
+              </div>
+            </div>
+          </div>
+          {/* Leave Application Form */}
+          <LeaveForm />
+        </div>
+        <div className="lg:col-span-2">
+          {/* Leave History */}
+          <LeaveHistory key={`leaves-${leaves.length}-${leaves.filter(l => l.status === 'approved').length}`} />
+        </div>
       </div>
     </div>
         </>

@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
+import Profile from "./pages/Profile";
 
 export default function App() {
   const { user } = useAuth();
@@ -61,6 +62,16 @@ export default function App() {
           element={
             <PageWrapper>
               {user?.role === "employee" ? <EmployeeDashboard /> : <Navigate to="/" replace />}
+            </PageWrapper>
+          }
+        />
+
+        {/* Profile page */}
+        <Route
+          path="/profile"
+          element={
+            <PageWrapper>
+              {user ? <Profile /> : <Navigate to="/login" replace />}
             </PageWrapper>
           }
         />
